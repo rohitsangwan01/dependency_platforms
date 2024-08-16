@@ -54,7 +54,7 @@ dart run dependency_platforms -e web
 
 ```bash
 Found 14 packages
-Loading : ███████████████████████████████████████████████████████████████████████████████████████ 14/14 100.0% [ 0:00:00.01 / 0:00:00.00 ]
+Loading : ██████████████████████████████████████████████████████████████ 14/14 100.0% [ 0:00:00.01 / 0:00:00.00 ]
 
 cupertino_icons                      android  ios  linux  macos  web  windows
 file_saver                           android  ios  linux  macos  web  windows
