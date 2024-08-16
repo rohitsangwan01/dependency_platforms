@@ -1,5 +1,5 @@
 name: dependency_platforms
-description: A sample command-line application.
+description: A tool to list platform support for all dependencies in your projects
 version: 0.0.1
 repository: https://github.com/rohitsangwan01/dependency_platforms.git
 
