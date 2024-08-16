@@ -7,7 +7,12 @@ import 'package:http/http.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:dolumns/dolumns.dart';
 
-void run(List<String> includes, List<String> excludes) async {
+/// Reads pubspec file and get dependencies
+void run(
+  List<String> includes,
+  List<String> excludes,
+  bool cacheResult,
+) async {
   File pubspecFile = File('pubspec.yaml');
   if (!pubspecFile.existsSync()) {
     print('pubspec.yaml not found');
@@ -21,28 +26,28 @@ void run(List<String> includes, List<String> excludes) async {
   print("Found ${packages.length} packages");
 
   List<List<String>> packagesData = [];
-  final progressBar = FillingBar(
-    desc: "Loading",
-    total: packages.length,
-    time: true,
-    percentage: true,
-  );
+  final progressBar = FillingBar(desc: "Loading", total: packages.length);
 
-  File cacheFile = File('dependency_cache.json');
-  if (!cacheFile.existsSync()) {
-    cacheFile.createSync(recursive: true);
-  }
-  String cache = cacheFile.readAsStringSync();
+  File? cacheFile;
   Map<String, dynamic> cacheData = {};
-  if (cache.isNotEmpty) {
-    cacheData = Map.from(json.decode(cache));
+
+  if (cacheResult) {
+    cacheFile = File('dependency_cache.json');
+    if (!cacheFile.existsSync()) {
+      cacheFile.createSync(recursive: true);
+    }
+    String cache = cacheFile.readAsStringSync();
+    if (cache.isNotEmpty) {
+      cacheData = Map.from(json.decode(cache));
+    }
   }
+
   Map<String, List<String>> newCache = {};
   for (String package in packages) {
     List<String> cachedPlatforms = List<String>.from(cacheData[package] ?? []);
     List<String> platforms = cachedPlatforms.isNotEmpty
         ? cachedPlatforms
-        : await getPlatforms(package);
+        : await _getPlatforms(package);
     List<String> expectedPlatforms = [
       "android",
       "ios",
@@ -77,15 +82,20 @@ void run(List<String> includes, List<String> excludes) async {
     packagesData.add([package, ...validPlatforms]);
   }
   // Save cache
-  await cacheFile.writeAsString(json.encode(newCache));
+  await cacheFile?.writeAsString(json.encode(newCache));
 
   await Future.delayed(const Duration(milliseconds: 500));
-  print("Results: \n");
-  final columns = dolumnify(packagesData);
+  packagesData.insert(
+      0, ['Dependency', 'Android', 'IOS', 'Linux', 'MacOS', 'Web', 'Windows']);
+  final columns = dolumnify(packagesData,
+      columnSplitter: ' | ', headerIncluded: true, headerSeparator: '-');
+  print("\n");
   print(columns);
+  print("\n");
 }
 
-Future<List<String>> getPlatforms(String package) async {
+/// Fetch supported platforms from pub
+Future<List<String>> _getPlatforms(String package) async {
   try {
     Response response =
         await get(Uri.parse('https://pub.dev/packages/$package'));

@@ -2,6 +2,8 @@
 
 A tool to list platform support for all dependencies in your projects
 
+[![dependency_platforms version](https://img.shields.io/pub/v/dependency_platforms?label=dependency_platforms)](https://pub.dev/packages/dependency_platforms)
+
 ## Installation
 
 Activate globally
@@ -38,7 +40,7 @@ To Get Help
 dart run dependency_platforms -h
 ```
 
-To list dependencies which must include specific platfmrs
+To list dependencies which must include specific platforms
 
 ```bash
 dart run dependency_platforms -i web,ios
@@ -53,23 +55,24 @@ dart run dependency_platforms -e web
 ### Sample
 
 ```bash
-Found 14 packages
-Loading : ██████████████████████████████████████████████████████████████ 14/14 100.0% [ 0:00:00.01 / 0:00:00.00 ]
+Found 15 packages
+Loading : █████████████████████████████████████████████████████████████████████████ 15/15  
 
-cupertino_icons                      android  ios  linux  macos  web  windows
-file_saver                           android  ios  linux  macos  web  windows
-local_auth                           android  ios  -      macos  -    windows
-lottie                               android  ios  linux  macos  -    windows
-firebase_core                        android  ios  -      macos  web  windows
-firebase_messaging                   android  ios  -      macos  web  -      
-firebase_analytics                   android  ios  -      macos  web  -      
-firebase_crashlytics                 android  ios  -      macos  -    -      
-firebase_performance                 android  ios  -      -      web  -      
-path_provider                        android  ios  linux  macos  -    windows
-pdf                                  android  ios  linux  macos  web  windows
-permission_handler                   android  ios  -      -      web  windows
-screenshot                           android  ios  linux  macos  web  windows
-shared_preferences                   android  ios  linux  macos  web  windows
+Dependency                          | Android | IOS | Linux | MacOS | Web | Windows
+-----------------------------------------------------------------------------------
+image_picker                        | android | ios | linux | macos | web | windows
+flutter_shimmer                     | android | ios | linux | macos | web | windows
+fluttercontactpicker                | android | ios | -     | -     | web | -      
+form_field_validator                | android | ios | linux | macos | web | windows
+flutter_image_compress              | android | ios | -     | macos | web | -      
+fl_chart                            | android | ios | linux | macos | web | windows
+file_saver                          | android | ios | linux | macos | web | windows
+local_auth                          | android | ios | -     | macos | -   | windows
+lottie                              | android | ios | linux | macos | -   | windows
+firebase_core                       | android | ios | -     | macos | web | windows
+firebase_messaging                  | android | ios | -     | macos | web | -      
+firebase_analytics                  | android | ios | -     | macos | web | -      
+firebase_crashlytics                | android | ios | -     | macos | -   | -      
+firebase_performance                | android | ios | -     | -     | web | -      
+path_provider                       | android | ios | linux | macos | -   | windows
 ```
-
-

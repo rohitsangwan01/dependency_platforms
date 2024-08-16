@@ -1,0 +1,19 @@
+name: example
+description: A sample command-line application.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  path: ^1.8.0
+  dio: ^5.6.0
+  get_it: ^7.7.0
+  logger: ^2.4.0
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.24.0
+  dependency_platforms:
+    path: ../
